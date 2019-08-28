@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.banu.bh318.todolist.Activity.ToDoList_Gorevler"
-    >
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    tools:context="com.banu.bh318.todolist.Activity.ToDoList_Gorevler">
 
     <include
         android:id="@+id/toolbar_id"
         layout="@layout/activity_to_do_list_toolbar_layout" />
+
     <LinearLayout
-        android:layout_below="@+id/toolbar_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar_id"
         android:background="@color/white"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            xmlns:android="http://schemas.android.com/apk/res/android">
+            android:layout_height="wrap_content">
             <!-- <Spinner
                  android:id="@+id/spinner"
                  android:layout_width="match_parent"
@@ -34,37 +32,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ededed"
+                android:padding="5dp"
                 android:text="Tamamlanmayan Görevler"
-                android:textStyle="italic"
                 android:textColor="@color/darkgray"
                 android:textSize="12dp"
-                android:padding="5dp"/>
+                android:textStyle="italic" />
 
         </RelativeLayout>
+
         <TextView
             android:id="@+id/bilgiAnasayfa2_tamamlanmayanlar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="Tamamlanmayan bir göreviniz bulunmamaktadır."
             android:textColor="#9b9999"
-            android:gravity="center"
             android:textStyle="italic"
-            android:visibility="gone"
-            />
-        <android.support.design.widget.CoordinatorLayout
+            android:visibility="gone" />
+
+        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/coordinator_layout_tamamlanmayanlar"
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/gorevlerItemList_tamamlanmayanlar"
-                android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#f4f4f4">
-            </android.support.v7.widget.RecyclerView>
+                android:background="#f4f4f4"
+                android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
         </android.support.design.widget.CoordinatorLayout>
 
 

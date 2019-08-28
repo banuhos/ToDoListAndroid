@@ -16,23 +16,25 @@ import java.util.Calendar;
  */
 
 @SuppressLint("ValidFragment")
-public class ToDoList_DialogDate extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+public class ToDoList_DialogDate extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     EditText txtData;
-    public ToDoList_DialogDate(View view){
-        txtData=(EditText) view;
+
+    public ToDoList_DialogDate(View view) {
+        txtData = (EditText) view;
     }
-    public Dialog onCreateDialog(Bundle savedInstanceState){
-        final Calendar c= Calendar.getInstance();
-        int year=c.get(Calendar.YEAR);
-        int month=c.get(Calendar.MONTH);
-        int day=c.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(),this,year,month,day);
+
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        String date=day+"."+(month+1)+"."+year;
+        String date = day + "." + (month + 1) + "." + year;
         txtData.setText(date);
     }
 }

@@ -13,16 +13,16 @@ import com.banu.bh318.todolist.R;
 
 public class ToDoList_Warning {
 
-        private AlertDialog.Builder builder;
-        private Context context;
+    private AlertDialog.Builder builder;
+    private Context context;
 
-        public ToDoList_Warning(Context context) {
-            this.context = context;
-        }
+    public ToDoList_Warning(Context context) {
+        this.context = context;
+    }
 
 
     public void registrationSuccesful() {
-        builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
         builder.setTitle("Başarılı!");
         builder.setMessage("İşleminiz başarıyla gerçekleşti mailinizi kontrol ediniz...");
         builder.setIcon(R.drawable.tamam);
@@ -36,53 +36,54 @@ public class ToDoList_Warning {
     }
 
 
-        public void mailControl() {
-            builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
-            builder.setTitle("Hata!");
-            builder.setMessage("Lütfen mailinizi doğrulayınız...");
-            builder.setIcon(R.drawable.hata);
-            builder.setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }
+    public void mailControl() {
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+        builder.setTitle("Hata!");
+        builder.setMessage("Lütfen mailinizi doğrulayınız...");
+        builder.setIcon(R.drawable.hata);
+        builder.setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
 
-        public void registrationFailed() {
-            builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
-            builder.setTitle("Başarısız!");
-            builder.setMessage("İşleminiz gerçekleşirken bir problem oluştu. Bilgilerinizi kontrol edin ve tekrar deneyin.");
-            builder.setIcon(R.drawable.hata);
-            builder.setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+    public void registrationFailed() {
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+        builder.setTitle("Başarısız!");
+        builder.setMessage("İşleminiz gerçekleşirken bir problem oluştu. Bilgilerinizi kontrol edin ve tekrar deneyin.");
+        builder.setIcon(R.drawable.hata);
+        builder.setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-        }
+    }
 
-        public void warning(String mesaj) {
-            builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
-            builder.setTitle("Başarısız!");
-            builder.setMessage(mesaj);
-            builder.setIcon(R.drawable.hata);
-            builder.setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+    public void warning(String mesaj) {
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+        builder.setTitle("Başarısız!");
+        builder.setMessage(mesaj);
+        builder.setIcon(R.drawable.hata);
+        builder.setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
 
-        }
+    }
+
     public void warningNull(String mesaj) {
-        builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
         builder.setTitle("Başarısız!");
         builder.setMessage(mesaj);
         builder.setIcon(R.drawable.hata);
@@ -96,7 +97,7 @@ public class ToDoList_Warning {
     }
 
     public void resetBasarili() {
-        builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
         builder.setTitle("Başarılı!");
         builder.setMessage("Şifrenizi sıfırlamanız için talimatlar gönderdik. Lütfen mailinizi kontrol ediniz...");
         builder.setIcon(R.drawable.tamam);
@@ -110,7 +111,7 @@ public class ToDoList_Warning {
     }
 
     public void resetBasarisiz() {
-        builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
         builder.setTitle("Başarısız!");
         builder.setMessage("Sıfırlama e-postası gönderilemedi. Bilgilerinizi kontrol edin ve tekrar deneyin.");
         builder.setIcon(R.drawable.hata);
@@ -123,8 +124,9 @@ public class ToDoList_Warning {
         dialog.show();
 
     }
+
     public void hata(String mesaj) {
-        builder = new AlertDialog.Builder(context,R.style.MyDialogTheme);
+        builder = new AlertDialog.Builder(context, R.style.MyDialogTheme);
         builder.setTitle("Başarısız!");
         builder.setMessage(mesaj);
         builder.setIcon(R.drawable.hata);
@@ -137,4 +139,4 @@ public class ToDoList_Warning {
         dialog.show();
     }
 
-    }
+}

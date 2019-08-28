@@ -39,14 +39,14 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
     private List<ToDoList_Gonderiler> mgorevListesi;
     private FirebaseDatabase database;
     private DatabaseReference mRef;
-    private String  date,userId;
+    private String date, userId;
     ToDoList_Gonderiler gorevler;
     private Context mContext;
     static ArrayList<User> listkullanici = new ArrayList<>();
 
     public ToDoList_KategorilerAdapter(Context context, List<ToDoList_Gonderiler> gorevler) {
-        this.mContext=context;
-        this.mgorevListesi=gorevler;
+        this.mContext = context;
+        this.mgorevListesi = gorevler;
         //notifyDataSetChanged();
     }
 
@@ -72,9 +72,9 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
         database.getReference().child("kategoriler").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds:dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     database.getReference().child("kategoriler").removeEventListener(this);
-                    if(!mgorevListesi.isEmpty()) {
+                    if (!mgorevListesi.isEmpty()) {
                         if (ds.getKey().equals(mgorevListesi.get(i).getGorevId()) && ds.child("durum").getValue().equals("1")) {
                             myViewHolder.checkBox.setChecked(true);
                         }
@@ -91,8 +91,8 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
         myViewHolder.cardview_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(mContext,ToDoList_Gorevler.class);
-                intent.putExtra("kategoriId",mgorevListesi.get(i).getGorevId());
+                Intent intent = new Intent(mContext, ToDoList_Gorevler.class);
+                intent.putExtra("kategoriId", mgorevListesi.get(i).getGorevId());
                 mContext.startActivity(intent);
 
             }
@@ -101,14 +101,13 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
         myViewHolder.checkBox.setOnCheckedChangeListener(new CustomCheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CustomCheckBox checkBox, boolean isChecked) {
-                if(isChecked){
-                    durumGuncelle(mgorevListesi.get(i).getGorevId(),"1");
-                }else{
-                    durumGuncelle(mgorevListesi.get(i).getGorevId(),"0");
+                if (isChecked) {
+                    durumGuncelle(mgorevListesi.get(i).getGorevId(), "1");
+                } else {
+                    durumGuncelle(mgorevListesi.get(i).getGorevId(), "0");
                 }
 
             }
-
 
 
         });
@@ -116,7 +115,7 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
     }
 
 
-    public void durumGuncelle(String pozisyon,String durum){
+    public void durumGuncelle(String pozisyon, String durum) {
         database.getReference().child("kategoriler").child(pozisyon).child("durum").setValue(durum);
     }
 
@@ -125,8 +124,8 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
         return mgorevListesi.size();
     }
 
-    public void removeItem(final int position, final ToDoList_Gonderiler gorevler){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
+    public void removeItem(final int position, final ToDoList_Gonderiler gorevler) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
         alertDialog.setTitle("UYARI");
         alertDialog.setMessage("Bu kategoriyi sildiğinizde bu kategoriye bağlı görevler silinecektir.Kategoriyi silmek istediğinize emin misiniz?");
         alertDialog.setPositiveButton("HAYIR", new DialogInterface.OnClickListener() {
@@ -142,45 +141,45 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
                 FirebaseDatabase.getInstance().getReference().child("kategoriler").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for ( DataSnapshot ds : dataSnapshot.getChildren()) {
-                            FirebaseDatabase.getInstance().getReference().child("gorevler").addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
-                                        if(gorevler.getGorevId().equals(ds1.child("kategoriId").getValue().toString())){
-                                            FirebaseDatabase.getInstance().getReference().child("gorevler").child(ds1.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    FirebaseDatabase.getInstance().getReference().child("kategoriler").child(gorevler.getGorevId()).removeValue();
-                                                }
-                                            });
-                                        }
-
+                        final boolean[] status = {false};
+                        FirebaseDatabase.getInstance().getReference().child("gorevler").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
+                                    if (gorevler.getGorevId().equals(ds1.child("kategoriId").getValue().toString())) {
+                                        FirebaseDatabase.getInstance().getReference().child("gorevler").child(ds1.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                FirebaseDatabase.getInstance().getReference().child("kategoriler").child(gorevler.getGorevId()).removeValue();
+                                                status[0] = true;
+                                            }
+                                        });
                                     }
 
-                                    FirebaseDatabase.getInstance().getReference().child("gorevler").removeEventListener(this);
                                 }
-
-                                @Override
-                                public void onCancelled (@NonNull DatabaseError databaseError){
-
+                                if (!status[0]) {
+                                    FirebaseDatabase.getInstance().getReference().child("kategoriler").child(gorevler.getGorevId()).removeValue();
                                 }
-                            });
+                                FirebaseDatabase.getInstance().getReference().child("gorevler").removeEventListener(this);
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
+                            }
+                        });
 
                         FirebaseDatabase.getInstance().getReference().child("kategoriler").removeEventListener(this);
                     }
 
                     @Override
-                    public void onCancelled (@NonNull DatabaseError databaseError){
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
                 });
                 mgorevListesi.remove(position);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position,mgorevListesi.size());
+                notifyItemRangeChanged(position, mgorevListesi.size());
             }
         });
 
@@ -188,11 +187,10 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
         dialog.show();
 
 
-
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-       TextView gorev;
+        TextView gorev;
         TextView tarih;
         CardView cardview_id;
         private CustomCheckBox checkBox;
@@ -201,12 +199,12 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            gorev=itemView.findViewById(R.id.gorev);
-            tarih=itemView.findViewById(R.id.dateValue);
-            cardview_id=itemView.findViewById(R.id.cardview_id2);
-            viewBackground=itemView.findViewById(R.id.view_background);
-            viewForeground=itemView.findViewById(R.id.view_foreground);
-            checkBox=itemView.findViewById(R.id.check_kategori);
+            gorev = itemView.findViewById(R.id.gorev);
+            tarih = itemView.findViewById(R.id.dateValue);
+            cardview_id = itemView.findViewById(R.id.cardview_id2);
+            viewBackground = itemView.findViewById(R.id.view_background);
+            viewForeground = itemView.findViewById(R.id.view_foreground);
+            checkBox = itemView.findViewById(R.id.check_kategori);
 
         }
     }

@@ -5,15 +5,17 @@
     android:layout_height="match_parent"
     android:background="@color/bckgrond"
     tools:context="com.banu.bh318.todolist.Activity.ToDoList_Login">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/register"
-        android:textStyle="bold|italic"
-        android:textSize="25dp"
-        android:gravity="center"
         android:layout_marginTop="30dp"
-        android:textColor="@color/white"/>
+        android:gravity="center"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold|italic" />
+
     <RelativeLayout
 
         android:layout_width="wrap_content"

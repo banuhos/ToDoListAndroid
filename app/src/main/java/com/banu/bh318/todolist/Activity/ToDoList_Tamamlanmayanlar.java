@@ -37,7 +37,7 @@ import dmax.dialog.SpotsDialog;
  * Created by bh318 on 26.08.2019.
  */
 
-public class ToDoList_Tamamlanmayanlar extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,SearchView.OnQueryTextListener{
+public class ToDoList_Tamamlanmayanlar extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, SearchView.OnQueryTextListener {
 
     private List<RFACLabelItem> itemtask;
     public TextView txtDate;
@@ -57,10 +57,10 @@ public class ToDoList_Tamamlanmayanlar extends AppCompatActivity implements Date
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list_tamamlanmayanlar);
 
-        toolbar=findViewById(R.id.toolbar_id);
+        toolbar = findViewById(R.id.toolbar_id);
         setSupportActionBar(toolbar);
 
-        empty= findViewById(R.id.bilgiAnasayfa2_tamamlanmayanlar);
+        empty = findViewById(R.id.bilgiAnasayfa2_tamamlanmayanlar);
 
         dialog = new SpotsDialog.Builder().setContext(this).setTheme(R.style.Custom).build();
 
@@ -85,12 +85,12 @@ public class ToDoList_Tamamlanmayanlar extends AppCompatActivity implements Date
     @Override
     public boolean onQueryTextChange(final String newText) {
         database = FirebaseDatabase.getInstance();
-        lvItem=findViewById(R.id.gorevlerItemList_tamamlanmayanlar);
+        lvItem = findViewById(R.id.gorevlerItemList_tamamlanmayanlar);
         final DatabaseReference dbRef = database.getReference("gorevler");
         kategoriId = getIntent().getExtras().getString("kategoriId");
         final ArrayList<ToDoList_Gonderiler> newList = new ArrayList<>();
-        final String vsbl="VISIBLE";
-        final String gone="GONE";
+        final String vsbl = "VISIBLE";
+        final String gone = "GONE";
 
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -132,7 +132,6 @@ public class ToDoList_Tamamlanmayanlar extends AppCompatActivity implements Date
     }
 
 
-
     public void gorevGetir() {
         kategoriId = getIntent().getExtras().getString("kategoriId");
         final DatabaseReference dbRef = database.getReference("gorevler");
@@ -143,51 +142,50 @@ public class ToDoList_Tamamlanmayanlar extends AppCompatActivity implements Date
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (final DataSnapshot ds1 : dataSnapshot.getChildren()) {
-                            if (listkullanici != null) {
-                                dialog.show();
-                                dbRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                                            if (ds.child("kategoriId").getValue().equals(kategoriId)) {
-                                                if(ds.child("durum").getValue().equals("0") || ds.child("durum").getValue().equals("2")) {
-                                                    final String gorev = ds.child("ad").getValue().toString();
-                                                    final String aciklama = ds.child("aciklama").getValue().toString();
-                                                    final String tarih = ds.child("tarih").getValue().toString();
-                                                    String gorevId = ds.getKey();
-                                                    String vsbl = "VISIBLE";
-                                                    String gone = "GONE";
-                                                    if(ds.child("durum").getValue().equals("2") && ds.child("kilitDurum").getValue().equals("2")){
-                                                        gorevler.add(new ToDoList_Gonderiler(gorevId, gorev, aciklama, tarih,gone,vsbl));
-                                                    }else{
-                                                        gorevler.add(new ToDoList_Gonderiler(gorevId, gorev, aciklama, tarih,vsbl,gone));
-                                                    }
+                        if (listkullanici != null) {
+                            dialog.show();
+                            dbRef.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        if (ds.child("kategoriId").getValue().equals(kategoriId)) {
+                                            if (ds.child("durum").getValue().equals("0") || ds.child("durum").getValue().equals("2")) {
+                                                final String gorev = ds.child("ad").getValue().toString();
+                                                final String aciklama = ds.child("aciklama").getValue().toString();
+                                                final String tarih = ds.child("tarih").getValue().toString();
+                                                String gorevId = ds.getKey();
+                                                String vsbl = "VISIBLE";
+                                                String gone = "GONE";
+                                                if (ds.child("durum").getValue().equals("2") && ds.child("kilitDurum").getValue().equals("2")) {
+                                                    gorevler.add(new ToDoList_Gonderiler(gorevId, gorev, aciklama, tarih, gone, vsbl));
+                                                } else {
+                                                    gorevler.add(new ToDoList_Gonderiler(gorevId, gorev, aciklama, tarih, vsbl, gone));
                                                 }
                                             }
-
                                         }
-                                        if (!gorevler.isEmpty()) {
-                                            gorevlerAdapter = new ToDoList_GorevlerAdapter(ToDoList_Tamamlanmayanlar.this, gorevler);
-                                            lvItem.setLayoutManager(new GridLayoutManager(ToDoList_Tamamlanmayanlar.this, 1));
-                                            lvItem.setAdapter(gorevlerAdapter);
-                                            dbRef.removeEventListener(this);
-                                            gorevlerAdapter.notifyDataSetChanged();
-                                        }else{
-                                            lvItem.setVisibility(View.GONE);
-                                            empty.setVisibility(View.VISIBLE);
-                                        }
-                                        dialog.dismiss();
-                                    }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                        dialog.dismiss();
                                     }
-                                });
-                            }
+                                    if (!gorevler.isEmpty()) {
+                                        gorevlerAdapter = new ToDoList_GorevlerAdapter(ToDoList_Tamamlanmayanlar.this, gorevler);
+                                        lvItem.setLayoutManager(new GridLayoutManager(ToDoList_Tamamlanmayanlar.this, 1));
+                                        lvItem.setAdapter(gorevlerAdapter);
+                                        dbRef.removeEventListener(this);
+                                        gorevlerAdapter.notifyDataSetChanged();
+                                    } else {
+                                        lvItem.setVisibility(View.GONE);
+                                        empty.setVisibility(View.VISIBLE);
+                                    }
+                                    dialog.dismiss();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    dialog.dismiss();
+                                }
+                            });
                         }
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         throw databaseError.toException();
@@ -197,24 +195,24 @@ public class ToDoList_Tamamlanmayanlar extends AppCompatActivity implements Date
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu,menu);
-        MenuItem menuItem=menu.findItem(R.id.action_search);
-        SearchView searchView=(SearchView) menuItem.getActionView();
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(this);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.item1:
-                Intent intent1=new Intent(ToDoList_Tamamlanmayanlar.this,ToDoList_Tamamlananlar.class);
-                intent1.putExtra("kategoriId",kategoriId);
+                Intent intent1 = new Intent(ToDoList_Tamamlanmayanlar.this, ToDoList_Tamamlananlar.class);
+                intent1.putExtra("kategoriId", kategoriId);
                 startActivity(intent1);
                 break;
             case R.id.item2:
-                Intent intent2=new Intent(ToDoList_Tamamlanmayanlar.this,ToDoList_Tamamlanmayanlar.class);
-                intent2.putExtra("kategoriId",kategoriId);
+                Intent intent2 = new Intent(ToDoList_Tamamlanmayanlar.this, ToDoList_Tamamlanmayanlar.class);
+                intent2.putExtra("kategoriId", kategoriId);
                 startActivity(intent2);
                 break;
         }

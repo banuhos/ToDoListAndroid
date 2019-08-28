@@ -1,57 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
     android:padding="10dp">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#fff">
+
         <TextView
             android:id="@+id/task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kategori Adı"
-            android:layout_weight="1"
             android:layout_marginBottom="10dp"
-            android:textColor="#000"
-            android:gravity="center"/>
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Kategori Adı"
+            android:textColor="#000" />
+
         <EditText
             android:id="@+id/taskNamme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="#000"
+            android:layout_below="@+id/task"
             android:layout_marginBottom="10dp"
-            android:layout_below="@+id/task"/>
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Son Tarihi Giriniz"
-            android:layout_weight="1"
-            android:textColor="#000"
+            android:layout_below="@+id/taskNamme"
             android:layout_marginBottom="10dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:layout_below="@+id/taskNamme"/>
+            android:text="Son Tarihi Giriniz"
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/dateName"
             android:layout_width="match_parent"
-            android:textColor="#000"
-            android:background="@drawable/to_do_list_edittext_border"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:layout_below="@+id/date"
-            />
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/to_do_list_edittext_border"
+            android:textColor="#000" />
+
         <Button
             android:id="@+id/gorevekle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#fff"
-            android:background="@drawable/to_do_list_border_radious"
-            android:layout_below="@+id/dateName"
             android:layout_alignParentRight="true"
-            android:text="Ekle"/>
+            android:layout_below="@+id/dateName"
+            android:background="@drawable/to_do_list_border_radious"
+            android:text="Ekle"
+            android:textColor="#fff" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

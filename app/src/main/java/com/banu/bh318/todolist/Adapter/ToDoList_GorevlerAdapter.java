@@ -37,14 +37,14 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
     private List<ToDoList_Gonderiler> mgorevListesi;
     private FirebaseDatabase database;
     private DatabaseReference mRef;
-    private String  date,userId;
+    private String date, userId;
     ToDoList_Gonderiler gorevler;
     private static Context mContext;
     static ArrayList<User> listkullanici = new ArrayList<>();
 
     public ToDoList_GorevlerAdapter(Context context, List<ToDoList_Gonderiler> gorevler) {
-        this.mContext=context;
-        this.mgorevListesi=gorevler;
+        this.mContext = context;
+        this.mgorevListesi = gorevler;
         notifyDataSetChanged();
 
     }
@@ -70,8 +70,7 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
         myViewHolder.tarih.setText(mgorevListesi.get(i).getDate());
 
 
-
-        if(!mgorevListesi.get(i).getGorunumCheckbox().equals("VISIBLE")){
+        if (!mgorevListesi.get(i).getGorunumCheckbox().equals("VISIBLE")) {
             myViewHolder.checkBox.setVisibility(View.VISIBLE);
             myViewHolder.lock.setVisibility(View.GONE);
         }
@@ -79,9 +78,9 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
         database.getReference().child("gorevler").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds:dataSnapshot.getChildren()){
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     database.getReference().child("gorevler").removeEventListener(this);
-                    if( ds.getKey().equals(mgorevListesi.get(i).getGorevId()) && ds.child("durum").getValue().equals("1")){
+                    if (ds.getKey().equals(mgorevListesi.get(i).getGorevId()) && ds.child("durum").getValue().equals("1")) {
                         myViewHolder.checkBox.setChecked(true);
                     }
                 }
@@ -96,8 +95,8 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
             @Override
             public void onClick(View v) {
 
-                gorevler=mgorevListesi.get(i);
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
+                gorevler = mgorevListesi.get(i);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext, R.style.MyDialogTheme);
                 alertDialog.setTitle("UYARI");
                 alertDialog.setMessage("Görevi silmek istediğinize emin misiniz?");
                 alertDialog.setPositiveButton("HAYIR", new DialogInterface.OnClickListener() {
@@ -115,6 +114,7 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
                                 FirebaseDatabase.getInstance().getReference().child("gorevler").child(gorevler.getGorevId()).removeValue();
                                 database.getReference().child("gorevler").removeEventListener(this);
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -128,7 +128,6 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
                 dialog.show();
 
 
-
             }
         });
 
@@ -136,17 +135,16 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
         myViewHolder.checkBox.setOnCheckedChangeListener(new CustomCheckBox.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CustomCheckBox checkBox, boolean isChecked) {
-                    if(isChecked){
-                        durumGuncelle(mgorevListesi.get(i).getGorevId(),"1");
-                        if(i+1<mgorevListesi.size()) {
-                            kilitDurumGuncelle(mgorevListesi.get(i + 1).getGorevId(), "2");
-                        }
-                    }else{
-                        durumGuncelle(mgorevListesi.get(i).getGorevId(),"0");
+                if (isChecked) {
+                    durumGuncelle(mgorevListesi.get(i).getGorevId(), "1");
+                    if (i + 1 < mgorevListesi.size()) {
+                        kilitDurumGuncelle(mgorevListesi.get(i + 1).getGorevId(), "2");
                     }
-
+                } else {
+                    durumGuncelle(mgorevListesi.get(i).getGorevId(), "0");
                 }
 
+            }
 
 
         });
@@ -155,14 +153,15 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
     }
 
 
-    public void durumGuncelle(String pozisyon,String durum){
+    public void durumGuncelle(String pozisyon, String durum) {
         database.getReference().child("gorevler").child(pozisyon).child("durum").setValue(durum);
     }
-    public void kilitDurumGuncelle(String pozisyon,String durum){
+
+    public void kilitDurumGuncelle(String pozisyon, String durum) {
         database.getReference().child("gorevler").child(pozisyon).child("kilitDurum").setValue(durum);
     }
 
-    public void deleteItem (int position) {
+    public void deleteItem(int position) {
         mgorevListesi.remove(position);
         notifyItemRemoved(position);
         notifyDataSetChanged();
@@ -179,21 +178,19 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
         TextView aciklama;
         TextView tarih;
         CardView cardview_id;
-        ImageView delete,lock;
+        ImageView delete, lock;
         private CustomCheckBox checkBox;
-
-
 
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            gorev=itemView.findViewById(R.id.gorevItem);
-            aciklama=itemView.findViewById(R.id.gorevAciklamaItem);
-            tarih=itemView.findViewById(R.id.dateValueItem);
-            cardview_id=itemView.findViewById(R.id.cardview_id3);
-            checkBox=itemView.findViewById(R.id.check_gorev_durum);
-            delete=itemView.findViewById(R.id.delete_red_button);
-            lock=itemView.findViewById(R.id.lock);
+            gorev = itemView.findViewById(R.id.gorevItem);
+            aciklama = itemView.findViewById(R.id.gorevAciklamaItem);
+            tarih = itemView.findViewById(R.id.dateValueItem);
+            cardview_id = itemView.findViewById(R.id.cardview_id3);
+            checkBox = itemView.findViewById(R.id.check_gorev_durum);
+            delete = itemView.findViewById(R.id.delete_red_button);
+            lock = itemView.findViewById(R.id.lock);
 
         }
     }

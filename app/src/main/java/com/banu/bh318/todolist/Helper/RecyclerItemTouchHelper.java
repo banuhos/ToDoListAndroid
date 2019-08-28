@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
     private RecyclerItemTouchHelperListener listener;
-    public DatabaseReference root= FirebaseDatabase.getInstance().getReference();
+    public DatabaseReference root = FirebaseDatabase.getInstance().getReference();
     public ArrayList<ToDoList_Gonderiler> gorevList;
 
-    public RecyclerItemTouchHelper(int dragDirs, int swipeDirs,RecyclerItemTouchHelperListener listener) {
+    public RecyclerItemTouchHelper(int dragDirs, int swipeDirs, RecyclerItemTouchHelperListener listener) {
         super(dragDirs, swipeDirs);
-        this.listener=listener;
+        this.listener = listener;
     }
 
     @Override
@@ -35,50 +35,33 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
-        if(listener != null){
-            listener.onSwiped(viewHolder,i,viewHolder.getAdapterPosition());
-           /* FirebaseDatabase.getInstance().getReference().child("gorevler").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                        FirebaseDatabase.getInstance().getReference().child("gorevler").child().removeValue();
-
-                    }
-
-                    FirebaseDatabase.getInstance().getReference().child("gorevler").removeEventListener(this);
-                }
-
-                @Override
-                public void onCancelled (@NonNull DatabaseError databaseError){
-
-                }
-            });*/
+        if (listener != null) {
+            listener.onSwiped(viewHolder, i, viewHolder.getAdapterPosition());
         }
     }
 
     @Override
     public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-       View foreGround=((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
-       getDefaultUIUtil().clearView(foreGround);
+        View foreGround = ((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
+        getDefaultUIUtil().clearView(foreGround);
     }
 
     @Override
     public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        View foreGround=((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
-        getDefaultUIUtil().onDraw(c,recyclerView,foreGround,dX,dY,actionState,isCurrentlyActive);
+        View foreGround = ((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
+        getDefaultUIUtil().onDraw(c, recyclerView, foreGround, dX, dY, actionState, isCurrentlyActive);
     }
 
     @Override
     public void onChildDrawOver(@NonNull Canvas c, @NonNull RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        View foreGround=((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
-        getDefaultUIUtil().onDrawOver(c,recyclerView,foreGround,dX,dY,actionState,isCurrentlyActive);
+        View foreGround = ((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
+        getDefaultUIUtil().onDrawOver(c, recyclerView, foreGround, dX, dY, actionState, isCurrentlyActive);
     }
 
     @Override
     public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
-        if(viewHolder != null){
-            View foreGround=((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
+        if (viewHolder != null) {
+            View foreGround = ((ToDoList_KategorilerAdapter.MyViewHolder) viewHolder).viewForeground;
             getDefaultUIUtil().onSelected(foreGround);
         }
     }

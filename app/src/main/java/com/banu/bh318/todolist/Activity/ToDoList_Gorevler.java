@@ -323,7 +323,6 @@ public class ToDoList_Gorevler extends AppCompatActivity implements DatePickerDi
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (final DataSnapshot ds1 : dataSnapshot.getChildren()) {
                             if (listkullanici != null) {
                                 dbRef.addValueEventListener(new ValueEventListener() {
                                     @Override
@@ -355,7 +354,6 @@ public class ToDoList_Gorevler extends AppCompatActivity implements DatePickerDi
                                             lvItem.setVisibility(View.GONE);
                                             empty.setVisibility(View.VISIBLE);
                                         }
-                                      //  dbRef.child("gorevler").removeEventListener(this);
                                         dialog.dismiss();
                                     }
 
@@ -365,7 +363,6 @@ public class ToDoList_Gorevler extends AppCompatActivity implements DatePickerDi
                                     }
                                 });
                             }
-                        }
                     }
 
                     @Override
