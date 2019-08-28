@@ -1,8 +1,10 @@
 package com.banu.bh318.todolist.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import com.banu.bh318.todolist.Activity.ToDoList_Gorevler;
 import com.banu.bh318.todolist.Modal.ToDoList_Gonderiler;
 import com.banu.bh318.todolist.Modal.User;
 import com.banu.bh318.todolist.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -123,26 +126,68 @@ public class ToDoList_KategorilerAdapter extends RecyclerView.Adapter<ToDoList_K
     }
 
     public void removeItem(final int position, final ToDoList_Gonderiler gorevler){
-        mgorevListesi.remove(position);
-        notifyItemRemoved(position);
-        FirebaseDatabase.getInstance().getReference().child("kategoriler").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
+        alertDialog.setTitle("UYARI");
+        alertDialog.setMessage("Bu kategoriyi sildiğinizde bu kategoriye bağlı görevler silinecektir.Kategoriyi silmek istediğinize emin misiniz?");
+        alertDialog.setPositiveButton("HAYIR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                notifyDataSetChanged();
+            }
+        });
+        alertDialog.setNegativeButton("EVET", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FirebaseDatabase.getInstance().getReference().child("kategoriler").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for ( DataSnapshot ds : dataSnapshot.getChildren()) {
+                            FirebaseDatabase.getInstance().getReference().child("gorevler").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
+                                        if(gorevler.getGorevId().equals(ds1.child("kategoriId").getValue().toString())){
+                                            FirebaseDatabase.getInstance().getReference().child("gorevler").child(ds1.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    FirebaseDatabase.getInstance().getReference().child("kategoriler").child(gorevler.getGorevId()).removeValue();
+                                                }
+                                            });
+                                        }
 
-                        FirebaseDatabase.getInstance().getReference().child("kategoriler").child(gorevler.getGorevId()).removeValue();
+                                    }
 
+                                    FirebaseDatabase.getInstance().getReference().child("gorevler").removeEventListener(this);
+                                }
+
+                                @Override
+                                public void onCancelled (@NonNull DatabaseError databaseError){
+
+                                }
+                            });
+
+
+                        }
+
+                        FirebaseDatabase.getInstance().getReference().child("kategoriler").removeEventListener(this);
                     }
 
-                    FirebaseDatabase.getInstance().getReference().child("kategoriler").removeEventListener(this);
-                }
+                    @Override
+                    public void onCancelled (@NonNull DatabaseError databaseError){
 
-                @Override
-                public void onCancelled (@NonNull DatabaseError databaseError){
+                    }
+                });
+                mgorevListesi.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position,mgorevListesi.size());
+            }
+        });
 
-                }
-            });
-        notifyItemRangeChanged(position,mgorevListesi.size());
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
+
+
 
     }
 

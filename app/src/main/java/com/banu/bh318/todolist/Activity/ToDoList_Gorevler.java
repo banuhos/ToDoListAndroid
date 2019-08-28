@@ -1,5 +1,6 @@
 package com.banu.bh318.todolist.Activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -46,6 +47,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
+
 /**
  * Created by bh318 on 24.08.2019.
  */
@@ -68,6 +71,7 @@ public class ToDoList_Gorevler extends AppCompatActivity implements DatePickerDi
     public android.support.v7.widget.Toolbar toolbar;
     private ToDoList_Warning uyarilar;
     public List<ToDoList_Gonderiler> kontrolList = new ArrayList<ToDoList_Gonderiler>();
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,8 +82,11 @@ public class ToDoList_Gorevler extends AppCompatActivity implements DatePickerDi
         setSupportActionBar(toolbar);
 
         empty = findViewById(R.id.bilgiAnasayfa2);
+        lvItem = findViewById(R.id.gorevlerItemList);
 
         kategoriId= getIntent().getExtras().getString("kategoriId");
+
+        dialog = new SpotsDialog.Builder().setContext(this).setTheme(R.style.Custom).build();
 
         itemtask = new ArrayList<>();
         uyarilar = new ToDoList_Warning(this);
@@ -311,7 +318,7 @@ public class ToDoList_Gorevler extends AppCompatActivity implements DatePickerDi
         gorevler = new ArrayList<>();
         lvItem = findViewById(R.id.gorevlerItemList);
 
-
+        dialog.show();
         database.getReference().child("kullanicilar")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -349,12 +356,12 @@ public class ToDoList_Gorevler extends AppCompatActivity implements DatePickerDi
                                             empty.setVisibility(View.VISIBLE);
                                         }
                                       //  dbRef.child("gorevler").removeEventListener(this);
-
+                                        dialog.dismiss();
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                        dialog.dismiss();
                                     }
                                 });
                             }

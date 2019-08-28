@@ -1,5 +1,6 @@
 package com.banu.bh318.todolist.Activity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem
 import java.util.ArrayList;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
+
 /**
  * Created by bh318 on 26.08.2019.
  */
@@ -47,6 +50,7 @@ public class ToDoList_Tamamlananlar extends AppCompatActivity implements DatePic
     public ToDoList_GorevlerAdapter gorevlerAdapter;
     public android.support.v7.widget.Toolbar toolbar;
     public TextView empty;
+    private AlertDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class ToDoList_Tamamlananlar extends AppCompatActivity implements DatePic
         setSupportActionBar(toolbar);
 
         empty= findViewById(R.id.bilgiAnasayfa2_tamamlananlar);
+
+        dialog = new SpotsDialog.Builder().setContext(this).setTheme(R.style.Custom).build();
 
         itemtask = new ArrayList<>();
         userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -131,12 +137,14 @@ public class ToDoList_Tamamlananlar extends AppCompatActivity implements DatePic
         gorevler = new ArrayList<>();
         lvItem = findViewById(R.id.gorevlerItemList_tamamlananlar);
 
+
         database.getReference().child("kullanicilar")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (final DataSnapshot ds1 : dataSnapshot.getChildren()) {
                             if (listkullanici != null) {
+                                dialog.show();
                                 dbRef.addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -163,10 +171,12 @@ public class ToDoList_Tamamlananlar extends AppCompatActivity implements DatePic
                                             lvItem.setVisibility(View.GONE);
                                             empty.setVisibility(View.VISIBLE);
                                         }
+                                        dialog.dismiss();
                                     }
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        dialog.dismiss();
                                     }
                                 });
                             }

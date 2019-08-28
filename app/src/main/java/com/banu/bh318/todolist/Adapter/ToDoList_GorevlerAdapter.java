@@ -99,7 +99,7 @@ public class ToDoList_GorevlerAdapter extends RecyclerView.Adapter<ToDoList_Gore
                 gorevler=mgorevListesi.get(i);
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext,R.style.MyDialogTheme);
                 alertDialog.setTitle("UYARI");
-                alertDialog.setMessage("Notu silmek istediğinize emin misiniz?");
+                alertDialog.setMessage("Görevi silmek istediğinize emin misiniz?");
                 alertDialog.setPositiveButton("HAYIR", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
