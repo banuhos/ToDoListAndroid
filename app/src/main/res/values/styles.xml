@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="Custom" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Yükleniyor…</item>
+        <item name="DialogSpotColor">@color/loading</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:textColor">#000</item>
+        <item name="DialogSpotCount">6</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light"></style>
+    <style name="AppTheme.PopupOverlay" parent="Theme.AppCompat.Light"></style>
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">#ececec</item>
+    </style>
+</resources>

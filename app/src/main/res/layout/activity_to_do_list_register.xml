@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bckgrond"
+    tools:context="com.banu.bh318.todolist.Activity.ToDoList_Login">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register"
+        android:textStyle="bold|italic"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"/>
+    <RelativeLayout
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/login_bglayout"
+        android:padding="30dp">
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="350dp"
+            android:layout_height="44dp"
+            android:text="Email"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/rg_email"
+            android:layout_width="350dp"
+            android:layout_height="44dp"
+            android:layout_below="@+id/email"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/sifre1"
+            android:layout_width="350dp"
+            android:layout_height="44dp"
+            android:layout_below="@+id/rg_email"
+            android:text="Şifre"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/rg_sifre"
+            android:layout_width="350dp"
+            android:layout_height="44dp"
+            android:layout_below="@+id/sifre1"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/sifre2"
+            android:layout_width="350dp"
+            android:layout_height="44dp"
+            android:layout_below="@+id/rg_sifre"
+            android:text="Şifre Tekrar"
+            android:textColor="@android:color/background_light"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/rg_sifreTekrar"
+            android:layout_width="350dp"
+            android:layout_height="44dp"
+            android:layout_below="@+id/sifre2"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/rg_buton"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rg_sifreTekrar"
+            android:background="@null"
+            android:text="Kaydol"
+            android:textColor="@drawable/login_btn_pressed"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

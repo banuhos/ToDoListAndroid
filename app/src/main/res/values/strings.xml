@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">ToDoList</string>
+    <string name="login_btn">Giriş Yap</string>
+    <string name="forgot_btn">Şifremi Unuttum</string>
+    <string name="register_btn">Kayıt Ol</string>
+    <string name="appname">To Do List</string>
+    <string name="register">Kayıt Ol</string>
+    <string name="kategoriler">Kategoriler</string>
+    <string-array name="filter">
+        <item>Tamamlanan Görevler</item>
+        <item>Tamamlanmayan Görevler</item>
+        <item>Görevlerin Tamamı</item>
+    </string-array>
+</resources>

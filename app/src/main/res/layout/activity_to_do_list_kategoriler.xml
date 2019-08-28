@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.banu.bh318.todolist.Activity.ToDoList_Kategoriler">
+    <include
+        android:id="@+id/toolbar_id_mainpage"
+        layout="@layout/activity_to_do_list_toolbar_layout" />
+    <LinearLayout
+        android:layout_below="@+id/toolbar_id_mainpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ededed"
+                android:text="@string/kategoriler"
+                android:textColor="#4e4e4e"
+                android:textStyle="italic"
+                android:textSize="14dp"
+                android:padding="5dp"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/bilgiAnasayfa"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Henüz bir kategori eklenmemiştir.Eklemek için + tuşunu kullanabilirsiniz..."
+            android:textColor="#9b9999"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:visibility="gone"
+            />
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/coordinator_layout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/gorevlerList"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#d7d7d7">
+            </android.support.v7.widget.RecyclerView>
+        </android.support.design.widget.CoordinatorLayout>
+
+
+    </LinearLayout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        tools:context=".MainActivity">
+
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout xmlns:rfal="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/label_list_sample_rfal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            rfal:rfal_frame_alpha="0.7"
+            rfal:rfal_frame_color="#ffffff">
+
+
+            <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton xmlns:rfab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/label_list_sample_rfab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                rfab:rfab_color_normal="@color/bckcolor"
+                rfab:rfab_color_pressed="@color/bckcolor"
+                rfab:rfab_drawable="@drawable/rfab__drawable_rfab_default"
+                rfab:rfab_shadow_color="#999999"
+                rfab:rfab_shadow_dx="0dp"
+                rfab:rfab_shadow_dy="5dp"
+                rfab:rfab_shadow_radius="7dp"
+                rfab:rfab_size="normal" />
+
+
+        </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

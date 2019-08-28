@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="seffafsiyah">#90000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="pressbutton">#048dc9</color>
+    <!--<color name="bckgrond">#e7d1ff</color>-->
+    <color name="bckgrond">#b0d1d1</color>
+    <color name="bckgrond_row">#81a7a7</color>
+    <color name="bckgrond_tab">#008080</color>
+    <color name="bckcolor">#7f7f7f</color>
+    <color name="loading">#666666</color>
+    <color name="bckcolor2">#e20030</color>
+    <color name="gray">#eee8aa</color>
+    <color name="darkgray">#757575</color>
+    <color name="blue">#8eb6d1</color>
+    <color name="green">#87d288</color>
+</resources>
